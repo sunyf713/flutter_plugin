@@ -1,5 +1,7 @@
 package com.moji.flutter_plugin;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -17,6 +19,7 @@ public class FlutterPlugin implements MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("getPlatformVersion")) {
+      LeakCanary.installedRefWatcher();
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else {
       result.notImplemented();
